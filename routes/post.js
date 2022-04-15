@@ -2,7 +2,8 @@ const {
   getMethod,
   postMethod,
   deleteMethod,
-  patchMethod
+  patchMethod,
+  optionsMethod
 } = require('../utils/httpMethod')
 
 const getAllPostUrl = async (req) => {
