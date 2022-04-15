@@ -1,3 +1,9 @@
+// Controller
+const {
+  getAllPost,
+  createPost
+} = require('./controller/posts')
+// Router
 const {
   getAllPostUrl,
   createPostUrl,
@@ -6,15 +12,16 @@ const {
   updatePostUrl,
   optionsUrl
 } = require('./routes/post')
+const { errorHandle } = require('./utils/resHandle')
 
-const app = (req, res) => {
-  if (getAllPostUrl) console.log('here')
-  else if (createPostUrl) console.log('here')
-  else if (deleteAllPostUrl) console.log('here')
-  else if (deletePostUrl) console.log('here')
-  else if (updatePostUrl) console.log('here')
-  else if (optionsUrl) console.log('here')
-  else handleError(req)
+const app = async (req, res) => {
+  if (await getAllPostUrl(req)) getAllPost(req, res)
+  else if (await createPostUrl(req)) createPost(req, res)
+  else if (await deleteAllPostUrl(req)) console.log('here')
+  else if (await deletePostUrl(req)) console.log('here')
+  else if (await updatePostUrl(req)) console.log('here')
+  else if (await optionsUrl(req)) console.log('here')
+  else errorHandle({ res })
 }
 
 module.exports = app
