@@ -61,6 +61,12 @@ API 規格
   cd posts-mongoose-week2
   npm install
   ```
+3. Setup .env to connect DB
+  ```
+  cp .env.example .env
+  設定 .env 參數 DB_URL, DB_PASSWORD，遠端資料庫使用 MongoDB Atlas
+  ```
+
 3. Start Runing Server
   ```
   npm run dev
