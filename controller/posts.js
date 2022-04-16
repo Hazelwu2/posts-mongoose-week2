@@ -1,10 +1,9 @@
 const { Post } = require('../model/posts')
+const { filterUrlId } = require('../utils/index')
 const {
   successHandle,
-  errorHnadle,
-  errorHandle
+  errorHandle,
 } = require('../utils/resHandle.js')
-const catchAsync = require('../utils/catchAsync')
 const { handleBuffer } = require('../utils/chunkHandle')
 
 const getAllPost = async (req, res) => {
@@ -45,8 +44,57 @@ const createPost = async (req, res) => {
   }
 }
 
+const deleteAllPost = async (req, res) => {
+  try {
+    await Post.deleteMany()
+    successHandle(res, [])
+  } catch (error) {
+    console.log(error)
+    errorHandle(res, 400)
+  }
+}
+
+const deletePost = async (req, res) => {
+  try {
+    const _id = await filterUrlId(req)
+    const data = await Post.findByIdAndDelete({ _id })
+
+    if (!data) {
+      errorHandle(res, 400)
+      return
+    }
+  } catch (error) {
+    console.log(error)
+    errorHandle(res, 400)
+  }
+}
+
+const updatePost = async (req, res) => {
+  try {
+    const { content, name, image, likes } = await handleBuffer(req)
+
+    successHandle({ res, data: content, name, image, likes })
+  } catch (error) {
+    console.log(error)
+    errorHandle({ res })
+  }
+}
+
+const isOptions = async (req, res) => {
+  try {
+    successHandle({ res })
+  } catch (error) {
+    console.log(error)
+    errorHandle({ res })
+  }
+}
+
 
 module.exports = {
   getAllPost,
-  createPost
+  createPost,
+  deleteAllPost,
+  deletePost,
+  updatePost,
+  isOptions
 }
