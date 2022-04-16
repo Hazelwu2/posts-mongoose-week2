@@ -11,7 +11,7 @@
     <br />
     <a href="https://github.com/Hazelwu2/posts-mongoose-week2/issues">Report Bug</a>
     ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Demo</a>
+    <a href="https://posts-mongoose-week2.herokuapp.com/">Demo</a>
   </p>
 </div>
 
