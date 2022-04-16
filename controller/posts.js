@@ -47,10 +47,11 @@ const createPost = async (req, res) => {
 const deleteAllPost = async (req, res) => {
   try {
     await Post.deleteMany()
-    successHandle(res, [])
+    const data = await Post.find({})
+    successHandle({ res, data })
   } catch (error) {
     console.log(error)
-    errorHandle(res, 400)
+    errorHandle({ res })
   }
 }
 
@@ -60,20 +61,39 @@ const deletePost = async (req, res) => {
     const data = await Post.findByIdAndDelete({ _id })
 
     if (!data) {
-      errorHandle(res, 400)
+      errorHandle({ res, message: '查無此 ID' })
       return
     }
+
+    successHandle({
+      res,
+      statusCode: 200,
+      message: '刪除成功',
+      data
+    })
+
   } catch (error) {
     console.log(error)
-    errorHandle(res, 400)
+    errorHandle({ res })
   }
 }
 
 const updatePost = async (req, res) => {
   try {
+    const _id = filterUrlId(req)
     const { content, name, image, likes } = await handleBuffer(req)
 
-    successHandle({ res, data: content, name, image, likes })
+    await Post.findByIdAndUpdate(
+      { _id },
+      { content, image, name, likes }
+    )
+
+    const data = await Post.find({ _id })
+
+    if (data) {
+      successHandle({ res, data })
+    }
+
   } catch (error) {
     console.log(error)
     errorHandle({ res })

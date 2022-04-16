@@ -23,7 +23,7 @@ const deletePostUrl = async (req) => {
 }
 
 const updatePostUrl = async (req) => {
-  return req.url === '/posts' && patchMethod(req)
+  return req.url.startsWith('/posts') && patchMethod(req)
 }
 
 const optionsUrl = async (req) => {
