@@ -18,7 +18,7 @@
 ## 🛖 About This Project
 第二週六角學院 Nodejs 主線任務，設計一個 /posts 路由，設計與 todolist kata 一樣的設計
 
-* 上傳 GitHub
+* 上傳 [GitHub](https://github.com/Hazelwu2/posts-mongoose-week2.git)
 * 提供 POSTMAN
 * config.env 忽略，不能在 GitHub 上
 * 請連接 mongodb 雲端 atlas 資料庫
