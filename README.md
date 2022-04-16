@@ -26,6 +26,12 @@
 * 部署到 [heroku 主機](https://posts-mongoose-week2.herokuapp.com/)
 
 API 規格
+<div align="center">
+<a href="https://github.com/Hazelwu2/posts-mongoose-week2.git/posts">
+  <img src="./getPost.png" alt="Get Post" width="400">
+</a>
+</div>
+
 * Create：建立 Post 貼文，[POST] /posts/
 * Read：閱讀 Post 貼文，[GET] /posts/
 * Edit：編輯 Post 貼文，[GET] /posts/{id}
@@ -64,6 +70,16 @@ API 規格
   herku create posts-mongoose-week2
   git push heroku main
   ```
+5. Setting Heroku Variable
+  ```
+  Project/Settings
+  Config Vars Add "DB_URL", "DB_PASSWORD"
+  ```
+6. DEBUG in Heroku
+  ```
+  heroku logs --tail
+  ```
+
 
 ## 📕 Mongoose CRUD Syntax
 - 新增：Model.create()
