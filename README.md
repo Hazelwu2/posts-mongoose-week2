@@ -20,6 +20,7 @@
 
 * 上傳 [GitHub](https://github.com/Hazelwu2/posts-mongoose-week2.git)
 * 提供 [POSTMAN](https://github.com/Hazelwu2/posts-mongoose-week2/blob/main/Post-Mongoose.postman_collection.json)
+* [Postman 環境變數](https://github.com/Hazelwu2/posts-mongoose-week2/blob/main/PostmanEnv.postman_environment.json)
 * config.env 忽略，不能在 GitHub 上：以.env取代
 * 請連接 mongodb 雲端 atlas 資料庫
 * dotenv 加上環境變數，讓程式更安全
@@ -31,6 +32,7 @@ API 規格
   <img src="./getPost.png" alt="Get Post" width="400">
 </a>
 </div>
+
 
 * Create：建立 Post 貼文，[POST] /posts/
 * Read：閱讀 Post 貼文，[GET] /posts/
