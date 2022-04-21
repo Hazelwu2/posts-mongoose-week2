@@ -20,6 +20,8 @@ const createPost = async (req, res) => {
   try {
     const { content, name, image, likes } = await handleBuffer(req)
 
+    if (!content || !name) errorHandle({ res })
+
     const data = await Post.create({
       content,
       image,
