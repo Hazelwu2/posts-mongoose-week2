@@ -83,15 +83,19 @@ const updatePost = async (req, res) => {
     const _id = filterUrlId(req)
     const { content, name, image, likes } = await handleBuffer(req)
 
-    await Post.findByIdAndUpdate(
+    if (!content || !name) errorHandle({ res })
+
+    const data = await Post.findByIdAndUpdate(
       { _id },
       { content, image, name, likes }
     )
 
-    const data = await Post.find({ _id })
+    if (!data) errorHandle({ res })
 
-    if (data) {
-      successHandle({ res, data })
+    const list = await Post.find({ _id })
+
+    if (list) {
+      successHandle({ res, data: list })
     }
 
   } catch (error) {
