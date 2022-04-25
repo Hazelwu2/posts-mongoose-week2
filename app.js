@@ -1,31 +1,13 @@
-// Controller
-const {
-  getAllPost,
-  createPost,
-  deleteAllPost,
-  deletePost,
-  updatePost,
-  isOptions
-} = require('./controller/posts')
+const express = require('express')
+const logger = require('morgan')
+const app = express()
 // Router
-const {
-  getAllPostUrl,
-  createPostUrl,
-  deleteAllPostUrl,
-  deletePostUrl,
-  updatePostUrl,
-  optionsUrl
-} = require('./routes/post')
-const { errorHandle } = require('./utils/resHandle')
+const postRouter = require('./routes/post')
 
-const app = async (req, res) => {
-  if (await getAllPostUrl(req)) getAllPost(req, res)
-  else if (await createPostUrl(req)) createPost(req, res)
-  else if (await deleteAllPostUrl(req)) deleteAllPost(req, res)
-  else if (await deletePostUrl(req)) deletePost(req, res)
-  else if (await updatePostUrl(req)) updatePost(req, res)
-  else if (await optionsUrl(req)) isOptions(req, res)
-  else errorHandle({ res })
-}
+app.use(logger('dev'))
+app.use(express.json())
+
+// Router
+app.use('/posts', postRouter)
 
 module.exports = app

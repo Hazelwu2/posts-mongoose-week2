@@ -1,40 +1,18 @@
-const {
-  getMethod,
-  postMethod,
-  deleteMethod,
-  patchMethod,
-  optionsMethod
-} = require('../utils/httpMethod')
+const express = require('express')
+const router = express.Router()
 
-const getAllPostUrl = async (req) => {
-  return req.url === '/posts' && getMethod(req)
-}
+const postController = require('../controller/posts')
 
-const createPostUrl = async (req) => {
-  return req.url === '/posts' && postMethod(req)
-}
+router
+  .route('/')
+  .get(postController.getAllPost)
+  .post(postController.createPost)
+  .delete(postController.deleteAllPost)
 
-const deleteAllPostUrl = async (req) => {
-  return req.url === '/posts' && deleteMethod(req)
-}
 
-const deletePostUrl = async (req) => {
-  return req.url.startsWith('/posts') && deleteMethod(req)
-}
+router
+  .route('/:id')
+  .patch(postController.updatePost)
+  .delete(postController.deletePost)
 
-const updatePostUrl = async (req) => {
-  return req.url.startsWith('/posts') && patchMethod(req)
-}
-
-const optionsUrl = async (req) => {
-  return optionsMethod(req)
-}
-
-module.exports = {
-  getAllPostUrl,
-  createPostUrl,
-  deleteAllPostUrl,
-  deletePostUrl,
-  updatePostUrl,
-  optionsUrl
-}
+module.exports = router

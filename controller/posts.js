@@ -1,12 +1,11 @@
 const { Post } = require('../model/posts')
-const { filterUrlId } = require('../utils/index')
 const {
   successHandle,
   errorHandle,
 } = require('../utils/resHandle.js')
-const { handleBuffer } = require('../utils/chunkHandle')
 
-const getAllPost = async (req, res) => {
+
+const getAllPost = async (req, res, next) => {
   try {
     const data = await Post.find()
     successHandle({ res, data })
@@ -16,11 +15,11 @@ const getAllPost = async (req, res) => {
   }
 }
 
-const createPost = async (req, res) => {
+const createPost = async (req, res, next) => {
   try {
-    const { content, name, image, likes } = await handleBuffer(req)
+    const { content, name, image, likes } = req.body
 
-    if (!content || !name) errorHandle({ res })
+    if (!content || !name) return errorHandle({ res })
 
     const data = await Post.create({
       content,
@@ -46,7 +45,7 @@ const createPost = async (req, res) => {
   }
 }
 
-const deleteAllPost = async (req, res) => {
+const deleteAllPost = async (req, res, next) => {
   try {
     await Post.deleteMany()
     const data = await Post.find({})
@@ -57,9 +56,9 @@ const deleteAllPost = async (req, res) => {
   }
 }
 
-const deletePost = async (req, res) => {
+const deletePost = async (req, res, next) => {
   try {
-    const _id = await filterUrlId(req)
+    const _id = req.params.id
     const data = await Post.findByIdAndDelete({ _id })
 
     if (!data) {
@@ -80,19 +79,20 @@ const deletePost = async (req, res) => {
   }
 }
 
-const updatePost = async (req, res) => {
+const updatePost = async (req, res, next) => {
   try {
-    const _id = filterUrlId(req)
-    const { content, name, image, likes } = await handleBuffer(req)
+    const _id = req.params.id
 
-    if (!content || !name) errorHandle({ res })
+    const { content, name, image, likes } = req.body
+
+    if (!content || !name) return errorHandle({ res })
 
     const data = await Post.findByIdAndUpdate(
       { _id },
       { content, image, name, likes }
     )
 
-    if (!data) errorHandle({ res })
+    if (!data) return errorHandle({ res })
 
     const list = await Post.find({ _id })
 
@@ -106,7 +106,7 @@ const updatePost = async (req, res) => {
   }
 }
 
-const isOptions = async (req, res) => {
+const isOptions = async (req, res, next) => {
   try {
     successHandle({ res })
   } catch (error) {
