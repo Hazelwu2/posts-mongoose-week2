@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "b51d5277-1a9c-473b-99eb-70c08ed5797f",
-		"name": "Post-Local(六角) Mongoose",
+		"name": "Post-Local(六角) Mongoose 第二週",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -44,15 +44,10 @@
 						"exec": [
 							"const res = pm.response.json()",
 							"pm.globals.set('id', res.data._id)",
-							"pm.test(\"Status code is 200\", function() {",
-							"    pm.response.to.have.status(200)",
+							"pm.test(\"Status code is 201\", function() {",
+							"    pm.response.to.have.status(201)",
 							"})",
-							"pm.test(\"title 必須一致\", function () {",
-							"    const res = pm.response.json()",
-							"    const requestTitle = JSON.parse(pm.request.body.raw).title",
-							"",
-							"    pm.expect(res.data[res.data.length -1].title).to.eql(requestTitle)",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -225,7 +220,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"content\": \"hihi\"\n}",
+					"raw": "{\n    \"content\": \"123123\",\n    \"name\": \"234\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -495,12 +490,9 @@
 				"method": "OPTIONS",
 				"header": [],
 				"url": {
-					"raw": "{{api_url}}/",
+					"raw": "{{api_url}}",
 					"host": [
 						"{{api_url}}"
-					],
-					"path": [
-						""
 					]
 				}
 			},
