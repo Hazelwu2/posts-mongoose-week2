@@ -10,7 +10,7 @@ const localDB = 'mongodb://localhost:27017/post'
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(localDB || DB)
+    await mongoose.connect(DB || localDB)
     console.log('MongoDB 資料庫連接成功')
   } catch (error) {
     console.log('連接資料庫失敗：', error)
