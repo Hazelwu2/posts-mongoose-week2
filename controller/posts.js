@@ -106,21 +106,10 @@ const updatePost = async (req, res, next) => {
   }
 }
 
-const isOptions = async (req, res, next) => {
-  try {
-    successHandle({ res })
-  } catch (error) {
-    console.log(error)
-    errorHandle({ res })
-  }
-}
-
-
 module.exports = {
   getAllPost,
   createPost,
   deleteAllPost,
   deletePost,
   updatePost,
-  isOptions
 }

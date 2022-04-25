@@ -25,7 +25,6 @@ const errorHandle = ({
   statusCode = 400,
   status = 'failed',
   message = '操作有誤或欄位未填寫正確',
-  data = {},
   errors = {}
 }) => {
   console.log(statusCode)
@@ -33,7 +32,6 @@ const errorHandle = ({
   res.end(JSON.stringify({
     status,
     message,
-    data,
     errors
   }))
 }
