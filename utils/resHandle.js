@@ -1,39 +1,43 @@
+const ApiState = require('./apiState')
 const headers = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With',
-  'Aceess-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET POST OPTIONS DELETE PATCH'
+}
+const setHeader = (res, headers) => {
+  Object.entries(headers).forEach(item => {
+    res.header(item[0], item[1])
+  })
 }
 
 const successHandle = ({
   res,
   statusCode = 200,
-  status = 'success',
-  message = '操作成功',
+  status = ApiState.SUCCESS.status,
+  message = ApiState.SUCCESS.message,
   data = {}
 }) => {
-  res.writeHead(statusCode, headers)
-  res.end(JSON.stringify({
+  setHeader(res, headers)
+  res.status(statusCode).json({
     status,
     message,
     data
-  }))
+  })
 }
 
 const errorHandle = ({
   res,
   statusCode = 400,
-  status = 'failed',
-  message = '操作有誤或欄位未填寫正確',
-  errors = {}
+  status = ApiState.FAIL.status,
+  message = ApiState.FAIL.message,
+  err
 }) => {
-  console.log(statusCode)
-  res.writeHead(statusCode, headers)
-  res.end(JSON.stringify({
+  setHeader(res, headers)
+  res.status(statusCode).json({
     status,
     message,
-    errors
-  }))
+  })
 }
 
 module.exports = {

@@ -1,13 +1,12 @@
 {
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "NODE_ENV=production node server.js",
+    "dev": "NODE_ENV=development nodemon server.js"
   },
   "name": "posts-mongoose-week2",
   "version": "1.0.0",
   "main": "app.js",
   "devDependencies": {
-
     "nodemon": "^2.0.15"
   },
   "author": "",
