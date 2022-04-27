@@ -1,11 +1,14 @@
-const apiState = require('../utils/apiState')
+const ApiState = require('../utils/apiState')
 
 const sendErrorDev = (err, res) => {
+  console.error('========== Send To Dev ====== QQQ ')
   // console 顯示錯誤訊息
   console.log(err.stack)
+  console.log('err.statusCode', err.statusCode)
+  console.error('========== Send To Dev ====== QQQ ')
 
   // Dev 環境會特別顯示 Error 印出詳細錯誤訊息
-  res.status(err.statusCode).json({
+  return res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
     error: err,
@@ -13,7 +16,7 @@ const sendErrorDev = (err, res) => {
 }
 
 const sendErrorProd = (err, res) => {
-  res.status(err.statusCode).json({
+  return res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
   })
@@ -21,17 +24,25 @@ const sendErrorProd = (err, res) => {
 
 const isDev = () => (process.env.NODE_ENV === 'development')
 const isProduction = () => (process.env.NODE_ENV === 'production')
+const setError = (customError, err) => {
+  console.log(customError)
+  err.message = customError.message
+  err.status = customError.status
+  err.statusCode = customError.httpStatus
+}
 
 // 捕捉到錯誤
 module.exports = (err, req, res, next) => {
+  let customeMessage = ApiState.INTERNAL_SERVER_ERROR
 
   err.statusCode = err.statusCode || 500
-  err.status = err.status || apiState.INTERNAL_SERVER_ERROR.status
+  err.status = err.status || customeMessage.status
+  err.name = err.name
+  err.stack = err.stack
 
-  let customeMessage = apiState.INTERNAL_SERVER_ERROR
-  if (err instanceof SyntaxError) customeMessage = apiState.SYNTAX_ERROR
-  if (err instanceof ReferenceError) customeMessage = apiState.REFERENCE_ERROR
-  if (err instanceof TypeError) customeMessage = apiState.TypeError
+  if (err instanceof SyntaxError) setError(ApiState.SYNTAX_ERROR, err)
+  if (err instanceof ReferenceError) setError(ApiState.REFERENCE_ERROR, err)
+  if (err instanceof TypeError) setError(ApiState.TypeError, err)
   else
     err.message = isDev ?
       err.message || customeMessage.message
@@ -41,5 +52,4 @@ module.exports = (err, req, res, next) => {
   isDev && sendErrorDev(err, res)
   // Production 環境給簡易 Log
   isProduction && sendErrorProd(err, res)
-
 }

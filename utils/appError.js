@@ -1,22 +1,18 @@
 /*
   Example
 
-  new AppError(4001, statusCode)
+  new AppError(ApiState.FIELD_MISSING)
 */
 
 
 class AppError extends Error {
-  // constructor(statusCode, customError, res) {
-  constructor(statusCode, status, message) {
+  constructor({ message, status, statusCode }) {
     super(message)
-    // const { status, message } = customError
-    console.log('========== AppError ==========')
 
     this.stack = ''
     this.statusCode = statusCode // Http 狀態碼
     this.status = status // 客製化狀態碼
     this.message = message // 錯誤訊息
-
     /*
     `Error.captureStackTrace` 函數
       [Systax] Error.captureStackTrace(targetObject[, constructorOpt])
@@ -38,6 +34,4 @@ class AppError extends Error {
 }
 
 
-module.exports = {
-  AppError
-}
+module.exports = AppError

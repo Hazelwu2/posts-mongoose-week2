@@ -19,24 +19,25 @@ const successHandle = ({
   data = {}
 }) => {
   setHeader(res, headers)
-  res.status(statusCode).json({
+  return res.status(statusCode).json({
     status,
     message,
     data
   })
 }
 
-const errorHandle = ({
+const errorHandle = (customError, {
   res,
   statusCode = 400,
-  status = ApiState.FAIL.status,
-  message = ApiState.FAIL.message,
-  err
+  error = {}
 }) => {
+  const { status, message } = customError
   setHeader(res, headers)
-  res.status(statusCode).json({
+
+  return res.status(statusCode).json({
     status,
     message,
+    error
   })
 }
 
