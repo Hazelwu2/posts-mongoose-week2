@@ -3,12 +3,7 @@ const headers = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization, Content-Length, X-Requested-With',
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods': 'GET POST OPTIONS DELETE PATCH'
-}
-const setHeader = (res, headers) => {
-  Object.entries(headers).forEach(item => {
-    res.header(item[0], item[1])
-  })
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, DELETE, PATCH'
 }
 
 const successHandle = ({
@@ -18,7 +13,6 @@ const successHandle = ({
   message = ApiState.SUCCESS.message,
   data = {}
 }) => {
-  setHeader(res, headers)
   return res.status(statusCode).json({
     status,
     message,
@@ -32,7 +26,6 @@ const errorHandle = (customError, {
   error = {}
 }) => {
   const { status, message } = customError
-  setHeader(res, headers)
 
   return res.status(statusCode).json({
     status,

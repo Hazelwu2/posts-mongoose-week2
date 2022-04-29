@@ -3,10 +3,15 @@
 
   new AppError(ApiState.FIELD_MISSING)
 */
+const ApiState = require('./apiState')
 
 
 class AppError extends Error {
-  constructor({ message, status, statusCode }) {
+  constructor(
+    { message = ApiState.INTERNAL_SERVER_ERROR.message,
+      status = ApiState.INTERNAL_SERVER_ERROR.status,
+      statusCode = ApiState.INTERNAL_SERVER_ERROR.httpStatus
+    }) {
     super(message)
 
     this.stack = ''
