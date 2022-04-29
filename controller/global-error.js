@@ -14,7 +14,6 @@ const sendErrorDev = (err, res) => {
 }
 
 const sendErrorProd = (err, res) => {
-  console.log('sendErrorProd')
   res.status(err.statusCode).json({
     status: err.status,
     message: err.message,
@@ -27,14 +26,14 @@ const isProduction = () => (process.env.NODE_ENV === 'production')
 const setError = (customError, err) => {
   err.message = customError.message
   err.status = customError.status
-  err.statusCode = customError.httpStatus
+  err.statusCode = customError.statusCode
 }
 
 // 捕捉到錯誤
 module.exports = (err, req, res, next) => {
   let customeMessage = ApiState.INTERNAL_SERVER_ERROR
 
-  err.statusCode = err.statusCode || customeMessage.httpStatus
+  err.statusCode = err.statusCode || customeMessage.statusCode
   err.status = err.status || customeMessage.status
   err.name = err.name
   err.stack = err.stack
