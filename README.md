@@ -16,7 +16,12 @@
 </div>
 
 ## 🛖 About This Project
-第二週六角學院 Nodejs 主線任務，設計一個 /posts 路由，設計與 todolist kata 一樣的設計
+第三週六角學院 Nodejs 主線任務，設計一個 /posts 路由，設計與 todolist kata 一樣的設計
+
+第三週：從 express MVC 架構建立 RESTful API
+- 將第二週程式碼改寫為 express 格式
+- routes： 將網址路徑管理拆到 routes 資料夾的 posts.js
+- model：將 post collections 拆到 model 資料夾，並載入到 routes/posts.js 上
 
 * 上傳 [GitHub](https://github.com/Hazelwu2/posts-mongoose-week2.git)
 * 提供 [POSTMAN](https://github.com/Hazelwu2/posts-mongoose-week2/blob/main/Post-Local(%E5%85%AD%E8%A7%92)%20Mongoose%20%E7%AC%AC%E4%BA%8C%E9%80%B1.postman_collection.json)
