@@ -8,9 +8,9 @@ const ApiState = require('./apiState')
 
 class AppError extends Error {
   constructor(
-    { message = ApiState.INTERNAL_SERVER_ERROR.message,
-      status = ApiState.INTERNAL_SERVER_ERROR.status,
-      statusCode = ApiState.INTERNAL_SERVER_ERROR.httpStatus
+    { message,
+      status,
+      statusCode
     }) {
     super(message)
 
@@ -34,7 +34,6 @@ class AppError extends Error {
     // A non-standard V8 function that creates the stack property on an Error instance.
     Error.captureStackTrace(this, this.constructor)
     console.error('stack', this.stack)
-
   }
 }
 
