@@ -71,7 +71,7 @@ const updatePost = catchAsync(async (req, res, next) => {
 
   const list = await Post.find({ _id })
 
-  if (!list) return errorHandle(ApiState.DATA_NOT_EXIST, { res })
+  if (!list) return next(new AppError(ApiState.DATA_NOT_EXIST))
 
   successHandle({ res, data: list })
 
